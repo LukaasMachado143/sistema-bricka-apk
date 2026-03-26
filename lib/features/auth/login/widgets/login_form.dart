@@ -1,7 +1,10 @@
+import 'package:apk/core/api/api_error_helper.dart';
 import 'package:apk/core/storage/local_storage.dart';
 import 'package:apk/core/widgets/brk_button.dart';
 import 'package:apk/core/widgets/brk_checkbox.dart';
+import 'package:apk/core/widgets/brk_snackbar.dart';
 import 'package:apk/core/widgets/brk_text_field.dart';
+import 'package:apk/features/auth/service/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {
@@ -12,6 +15,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final service = AuthService();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -20,22 +24,32 @@ class _LoginFormState extends State<LoginForm> {
   bool _obscurePassword = true;
 
   Future<void> _handleLogin() async {
-    setState(() {
-      _isLoading = true;
-    });
-    if (_rememberMe == true) {
-      await LocalStorage.saveLoginData(
-        rememberMe: _rememberMe,
-        username: _usernameController.text,
-        password: _passwordController.text,
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      if (_rememberMe == true) {
+        await LocalStorage.saveLoginData(
+          rememberMe: _rememberMe,
+          username: _usernameController.text,
+          password: _passwordController.text,
+        );
+      }
+
+      String token = await service.getToken(
+        _usernameController.text,
+        _passwordController.text,
       );
+
+      LocalStorage.setToken(token);
+      Navigator.pushReplacementNamed(context, '/home');
+    } catch (e) {
+      ApiErrorHelper.handle(e, defaultMessage: 'Erro ao fazer login');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   void _toggleObscurePassword() {

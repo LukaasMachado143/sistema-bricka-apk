@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 class AppTextStyles {
-  // ❌ removido fontFamily (google_fonts já cuida disso)
-
   static const h1 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w700,
@@ -16,6 +14,13 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
     height: 1.2,
     color: AppColors.textPrimary,
+  );
+
+  static const h4Light = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    height: 1.2,
+    color: AppColors.text50,
   );
 
   static const h3 = TextStyle(

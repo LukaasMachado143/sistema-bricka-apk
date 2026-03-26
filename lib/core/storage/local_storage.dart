@@ -1,3 +1,4 @@
+import 'package:apk/features/auth/models/user_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class LocalStorage {
@@ -29,5 +30,27 @@ class LocalStorage {
     await _prefs.delete('rememberMe');
     await _prefs.delete('username');
     await _prefs.delete('password');
+  }
+
+  static Future<void> setToken(String token) async {
+    await _prefs.put('token', token);
+  }
+
+  static Future<String?> getToken() async {
+    final token = await _prefs.get('token');
+    return token;
+  }
+
+  static Future<void> clearToken() async {
+    return await _prefs.get('token');
+  }
+
+  static Future<void> setUser(UserModel user) async {
+    await _prefs.put('user', user.toJson());
+  }
+
+  static Future<UserModel> getUser() async {
+    final user = await _prefs.get('user');
+    return UserModel.fromJson(user);
   }
 }

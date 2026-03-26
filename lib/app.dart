@@ -1,7 +1,9 @@
+import 'package:apk/core/navigation/app_navigation.dart';
 import 'package:apk/core/theme/app_theme.dart';
-import 'package:apk/screens/home_screen.dart';
-import 'package:apk/features/auth/presentation/pages/login_page.dart';
-import 'package:apk/screens/splash_screen.dart';
+import 'package:apk/core/widgets/brk_snackbar.dart';
+import 'package:apk/features/auth/loading_user_data/pages/loading_user_data.dart';
+import 'package:apk/features/auth/login/pages/login_page.dart';
+import 'package:apk/features/main/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -15,10 +17,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (_) => const SplashScreen(),
+        '/': (_) => const LoadingUserData(),
         '/login': (_) => const LoginPage(),
-        '/home': (_) => const HomeScreen(),
+        '/home': (_) => const HomePage()
       },
+      scaffoldMessengerKey: BrkSnackbar.messengerKey,
+      navigatorKey: AppNavigator.navigatorKey,
     );
   }
 }

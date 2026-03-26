@@ -1,3 +1,4 @@
+import 'package:apk/core/widgets/brk_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
@@ -32,14 +33,7 @@ class BrkButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         child: isLoading
-            ? const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: Colors.white,
-                ),
-              )
+            ? BrkCircularProgressIndicator(color: AppColors.text50)
             : Text(title, style: _getTextStyle()),
       ),
     );

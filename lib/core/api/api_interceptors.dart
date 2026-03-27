@@ -27,6 +27,7 @@ class ApiInterceptor extends Interceptor {
     if (status == 403) {
       BrkSnackbar.info('Você não tem acesso a esse recurso');
       err.requestOptions.extra['handled'] = true;
+      AppNavigator.goToLogin();
     }
 
     if (status == 401) {

@@ -16,13 +16,6 @@ class AppTextStyles {
     color: AppColors.textPrimary,
   );
 
-  static const h4Light = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w500,
-    height: 1.2,
-    color: AppColors.text50,
-  );
-
   static const h3 = TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.w500,
@@ -74,7 +67,7 @@ class AppTextStyles {
 
   static const button = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.w600, // 🔥 era 500
+    fontWeight: FontWeight.w600,
     height: 1.2,
     color: Colors.white,
   );

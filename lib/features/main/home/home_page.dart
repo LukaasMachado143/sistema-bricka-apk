@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  UserModel user = UserModel();
+  UserModel? user = UserModel();
 
   @override
   void initState() {
@@ -26,8 +26,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Text(user.image.toString()),
+      backgroundColor: AppColors.background,
+      body: Center(child: Text('Estou na home')),
     );
   }
 }

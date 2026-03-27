@@ -42,7 +42,7 @@ class _LoginFormState extends State<LoginForm> {
       );
 
       LocalStorage.setToken(token);
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/');
     } catch (e) {
       ApiErrorHelper.handle(e, defaultMessage: 'Erro ao fazer login');
     } finally {

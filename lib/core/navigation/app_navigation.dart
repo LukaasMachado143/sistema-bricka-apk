@@ -9,4 +9,11 @@ class AppNavigator {
       (route) => false,
     );
   }
+
+  static void goToHome() {
+    navigatorKey.currentState?.pushNamedAndRemoveUntil(
+      '/home',
+          (route) => false,
+    );
+  }
 }

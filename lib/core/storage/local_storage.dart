@@ -45,12 +45,18 @@ class LocalStorage {
     return await _prefs.get('token');
   }
 
-  static Future<void> setUser(UserModel user) async {
-    await _prefs.put('user', user.toJson());
+  static Future<void> setUser(UserModel? user) async {
+    if (user != null) {
+      await _prefs.put('user', user.toJson());
+    }
   }
 
-  static Future<UserModel> getUser() async {
+  static Future<UserModel?> getUser() async {
     final user = await _prefs.get('user');
-    return UserModel.fromJson(user);
+    return user != null ? UserModel.fromJson(user) : null;
+  }
+
+  static Future<void> clearUser() async {
+    await _prefs.delete('user');
   }
 }

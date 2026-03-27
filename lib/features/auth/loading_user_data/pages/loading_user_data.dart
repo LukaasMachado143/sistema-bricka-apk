@@ -3,6 +3,7 @@ import 'package:apk/core/storage/local_storage.dart';
 import 'package:apk/core/theme/app_colors.dart';
 import 'package:apk/core/theme/app_text_styles.dart';
 import 'package:apk/core/widgets/brk_circular_progress_indicator.dart';
+import 'package:apk/features/auth/models/user_model.dart';
 import 'package:apk/features/auth/service/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -19,20 +20,21 @@ class _LoadingUserDataState extends State<LoadingUserData> {
   @override
   void initState() {
     super.initState();
-    _loadUserData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setUserData();
+    });
   }
 
-  Future<void> _loadUserData() async {
+  Future<void> _setUserData() async {
     try {
-      String? token = await LocalStorage.getToken();
+      UserModel? user = await LocalStorage.getUser();
 
-      if (token != null) {
-        final user = await service.getInitialUserData();
-        if (user != null) {
-          await LocalStorage.setUser(user);
-          Navigator.pushReplacementNamed(context, '/home');
-        }
+      if (user == null) {
+        user = await service.getInitialUserData();
+        await LocalStorage.setUser(user);
       }
+      if (!mounted) return;
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     } catch (e) {
       ApiErrorHelper.handle(
         e,
@@ -46,7 +48,7 @@ class _LoadingUserDataState extends State<LoadingUserData> {
     return Scaffold(
       body: Container(
         color: AppColors.primary,
-        child: const Center(
+        child: Center(
           child: Padding(
             padding: EdgeInsets.all(24),
             child: Row(
@@ -57,7 +59,7 @@ class _LoadingUserDataState extends State<LoadingUserData> {
                 Flexible(
                   child: Text(
                     'Carregando informações do usuário',
-                    style: AppTextStyles.h4Light,
+                    style: AppTextStyles.h4.copyWith(color: AppColors.text50),
                   ),
                 ),
               ],

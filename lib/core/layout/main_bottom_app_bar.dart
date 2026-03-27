@@ -29,7 +29,7 @@ class _MainBottomAppBarState extends State<MainBottomAppBar> {
     return BottomNavigationBar(
       currentIndex: widget.currentIndex,
       onTap: widget.onTap,
-      selectedItemColor: AppColors.secondary,
+      selectedItemColor: AppColors.primary,
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
